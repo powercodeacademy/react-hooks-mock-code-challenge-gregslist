@@ -5,6 +5,10 @@ function ListingCard({ listing }) {
 
   const [ favorited, setFavorited ] = useState(false)
 
+  const handleClick = () => {
+    setFavorited(!favorited)
+  }
+
   return (
     <li className="card">
       <div className="image">
@@ -13,9 +17,9 @@ function ListingCard({ listing }) {
       </div>
       <div className="details">
         {favorited ? (
-          <button className="emoji-button favorite active">★</button>
+          <button onClick={handleClick} className="emoji-button favorite active">★</button>
         ) : (
-          <button className="emoji-button favorite">☆</button>
+          <button onClick={handleClick} className="emoji-button favorite">☆</button>
         )}
         <strong>{description}</strong>
         <span> · {location}</span>

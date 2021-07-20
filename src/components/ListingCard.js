@@ -1,12 +1,16 @@
 import React, { useState } from "react"
 
-function ListingCard({ listing }) {
+function ListingCard({ onDeleteListing, listing }) {
   const { id, description, image, location } = listing
 
   const [ favorited, setFavorited ] = useState(false)
 
-  const handleClick = () => {
+  const handleClickFavorite = () => {
     setFavorited(!favorited)
+  }
+
+  const handleClickTrash = () => {
+    onDeleteListing(id)
   }
 
   return (
@@ -17,13 +21,13 @@ function ListingCard({ listing }) {
       </div>
       <div className="details">
         {favorited ? (
-          <button onClick={handleClick} className="emoji-button favorite active">★</button>
+          <button onClick={handleClickFavorite} className="emoji-button favorite active">★</button>
         ) : (
-          <button onClick={handleClick} className="emoji-button favorite">☆</button>
+          <button onClick={handleClickFavorite} className="emoji-button favorite">☆</button>
         )}
         <strong>{description}</strong>
         <span> · {location}</span>
-        <button className="emoji-button delete">🗑</button>
+        <button onClick={handleClickTrash} className="emoji-button delete">🗑</button>
       </div>
     </li>
   );

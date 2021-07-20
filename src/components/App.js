@@ -11,11 +11,26 @@ function App() {
       .then(data => setListings(data))
   }, [])
 
+  /*
+    We have to know which listing was deleted (the ID)
+    We need a fetch (method: "DELETE")
+    We need to update the DOM by using setListing to remove the deleted item
+  */
+  const deleteListing = (id) => {
+    fetch(`http://localhost:6001/listings/${id}`, { method: "DELETE" })
+      .then(() => {
+        const newDelete = listings.filter((listing) => listing.id !== id)
+        setListings(newDelete)
+      })
+  }
 
   return (
     <div className="app">
       <Header />
-      <ListingsContainer listings={listings} />
+      <ListingsContainer
+          onDeleteListing={deleteListing}
+          listings={listings}
+      />
     </div>
   );
 }
